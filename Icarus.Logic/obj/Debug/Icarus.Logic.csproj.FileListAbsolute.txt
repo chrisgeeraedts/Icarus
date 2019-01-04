@@ -1,0 +1,6 @@
+C:\Users\PC CHRIS\Documents\Visual Studio 2017\Projects\Icarus\Icarus.Logic\obj\Debug\Icarus.Logic.csproj.CoreCompileInputs.cache
+C:\Users\PC CHRIS\Documents\Visual Studio 2017\Projects\Icarus\Icarus.Logic\bin\Debug\Icarus.Logic.dll
+C:\Users\PC CHRIS\Documents\Visual Studio 2017\Projects\Icarus\Icarus.Logic\bin\Debug\Icarus.Logic.pdb
+C:\Users\PC CHRIS\Documents\Visual Studio 2017\Projects\Icarus\Icarus.Logic\obj\Debug\Icarus.Logic.csprojResolveAssemblyReference.cache
+C:\Users\PC CHRIS\Documents\Visual Studio 2017\Projects\Icarus\Icarus.Logic\obj\Debug\Icarus.Logic.dll
+C:\Users\PC CHRIS\Documents\Visual Studio 2017\Projects\Icarus\Icarus.Logic\obj\Debug\Icarus.Logic.pdb

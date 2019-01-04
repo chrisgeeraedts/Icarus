@@ -3,3 +3,11 @@
 ################################################################################
 
 /Icarus/bin/Debug
+/.vs/Icarus
+/Icarus/obj/Debug
+/Icarus.Logic/bin/Debug
+/Icarus.Logic.Tests/bin/Debug
+/Icarus.Logic.Tests/obj/Debug
+/Icarus.Presentation.WinForm/bin/Debug
+/Icarus.Presentation.WinForm/obj/Debug
+/packages
