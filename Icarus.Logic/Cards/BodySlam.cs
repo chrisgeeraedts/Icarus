@@ -3,7 +3,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class BodySlam : BaseCard, ICardTemplate
+    public class BodySlam : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public BodySlam()
         {

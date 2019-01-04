@@ -5,7 +5,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Thunderclap : BaseCard, ICardTemplate
+    public class Thunderclap : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Thunderclap()
         {

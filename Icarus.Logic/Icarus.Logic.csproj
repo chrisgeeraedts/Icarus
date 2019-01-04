@@ -51,6 +51,9 @@
     <Compile Include="Cards\FeelNoPain.cs" />
     <Compile Include="Cards\FireBreathing.cs" />
     <Compile Include="Cards\FlameBarrier.cs" />
+    <Compile Include="Cards\GhostlyArmor.cs" />
+    <Compile Include="Cards\Hemokinesis.cs" />
+    <Compile Include="Cards\InfernalBlade.cs" />
     <Compile Include="Cards\NullCard.cs" />
     <Compile Include="Enemies\Enemy_TestDummy.cs" />
     <Compile Include="Events\Args\CardDrawnEventArgs.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="Events\Args\PowerActivatedEventArgs.cs" />
     <Compile Include="Events\Args\PowerAddedToPlayerEventArgs.cs" />
     <Compile Include="Events\Args\ShuffleCardEventArgs.cs" />
+    <Compile Include="Events\Args\CardMovedBetweenPilesEventArgs.cs" />
     <Compile Include="Events\Args\SkillCardActivatedEventArgs.cs" />
     <Compile Include="Managers\EventManager.cs" />
     <Compile Include="Power\BasePower.cs" />

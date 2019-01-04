@@ -6,7 +6,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Flex : BaseCard, ICardTemplate
+    public class Flex : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Flex()
         {

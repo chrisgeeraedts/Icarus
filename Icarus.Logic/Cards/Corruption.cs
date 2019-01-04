@@ -5,7 +5,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Corruption : BaseCard, ICardTemplate
+    public class Corruption : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Corruption()
         {

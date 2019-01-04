@@ -8,6 +8,8 @@ namespace Icarus.Logic.Managers
 {
     public class CardManager : IManager
     {
+        private List<BaseCard> availableCardTemplates;
+
         public int MaxHandSize
         {
             get 
@@ -99,6 +101,16 @@ namespace Icarus.Logic.Managers
         public CardManager(GameWorldManager gameWorldManager)
         {
             GameWorldManager = gameWorldManager;
+            availableCardTemplates = new List<BaseCard>();
+            var type = typeof(IPlayableCardTemplate);
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => type.IsAssignableFrom(p));
+            foreach (var type1 in types.Where(x=> !x.IsAbstract))
+            {
+                var cardTemplate = (Activator.CreateInstance(type1) as BaseCard);
+                availableCardTemplates.Add(cardTemplate);
+            }
         }
 
         public void MoveCardBetweenPiles(ICardInstance cardInstance, CardMovePoint cardMoveSource, CardMovePoint cardMoveTarget)
@@ -140,6 +152,8 @@ namespace Icarus.Logic.Managers
                 default:
                     break;
             }
+
+            GameWorldManager.EventManager.CardMovedBetweenPiles(cardMoveSource, cardMoveTarget, cardInstance);
         }
 
         public void DrawFirstHand()
@@ -206,6 +220,7 @@ namespace Icarus.Logic.Managers
 
         public void AddCardToPile(ICardInstance newCard, CardMovePoint shuffleTargetPile, ShuffleFormat shuffleFormat)
         {
+            Logger.Log($"Adding card: {newCard.Name}({newCard.UniqueId}) to {shuffleFormat} point of {shuffleTargetPile}");
             switch (shuffleTargetPile)
             {
                 case CardMovePoint.Deck:
@@ -241,6 +256,35 @@ namespace Icarus.Logic.Managers
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shuffleFormat), shuffleFormat, null);
             }
+        }
+
+        public void CreateRandomCard(CardColor targetCardColor, CardType targetCardType, CardMovePoint targetCardMovePoint, ShuffleFormat shuffleFormat)
+        {
+            var filteredListByColor = new List<BaseCard>();
+            if (targetCardColor == CardColor.Any)
+            {
+                filteredListByColor.AddRange(availableCardTemplates.Where(x=> x.CardColor != CardColor.Curse));
+            }
+            else
+            {
+                filteredListByColor.AddRange(availableCardTemplates.Where(x => x.CardColor == targetCardColor));
+            }
+            
+            var filteredListByColorAndType = new List<BaseCard>();
+            if (targetCardType == CardType.Any)
+            {
+                filteredListByColorAndType.AddRange(filteredListByColor.Where(x => x.CardType != CardType.Curse && x.CardType != CardType.Status));
+            }
+            else
+            {
+                filteredListByColorAndType.AddRange(filteredListByColor.Where(x => x.CardType == targetCardType));
+            }
+
+            int randomIndex = new Random().Next(filteredListByColorAndType.Count -1);
+            ICardInstance newCard = new CardInstance(filteredListByColorAndType[randomIndex].GetType(), GameWorldManager);
+            Logger.Log($"Created a new card: {newCard.Name} ({newCard.UniqueId}) and placing it in {shuffleFormat} location of {targetCardMovePoint}");
+            GameWorldManager.EventManager.CardCreated(targetCardMovePoint, newCard);
+            AddCardToPile(newCard, targetCardMovePoint, shuffleFormat);
         }
     }
 }

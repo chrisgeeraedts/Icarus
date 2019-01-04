@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Icarus.Logic.Managers;
 using Icarus.Logic.Power;
+using Icarus.Logic.Support.Cards.Effects;
 
 namespace Icarus.Logic.ActiveSkill
 {
@@ -16,7 +18,14 @@ namespace Icarus.Logic.ActiveSkill
 
         public override bool ActionWhenTriggered(GameWorldManager gameWorldManager)
         {
-            gameWorldManager.CardEffectManager.AddBlockSelf(4);
+            gameWorldManager.CardEffectManager.DamageTarget(BaseCard, new DamageMultipleTimesEffect()
+            {
+                DamageAmount = 4,
+                HitTimes = 1
+            }, new List<IEnemyInstance>()
+            {
+                gameWorldManager.EnemyManager.ActiveEnemyInstance
+            });
 
             return true;
         }

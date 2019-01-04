@@ -7,7 +7,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Headbutt : BaseCard, ICardTemplate
+    public class Headbutt : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Headbutt()
         {

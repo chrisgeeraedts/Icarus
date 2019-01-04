@@ -6,7 +6,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class HeavyBlade : BaseCard, ICardTemplate
+    public class HeavyBlade : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public HeavyBlade()
         {

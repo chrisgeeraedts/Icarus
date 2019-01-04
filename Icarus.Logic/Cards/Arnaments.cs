@@ -4,7 +4,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Arnaments : BaseCard, ICardTemplate
+    public class Arnaments : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Arnaments()
         {

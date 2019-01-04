@@ -2,6 +2,7 @@
 {
     public enum CardColor
     {
+        Any,
         Red,
         Blue,
         Green,

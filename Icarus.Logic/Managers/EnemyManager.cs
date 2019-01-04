@@ -9,7 +9,7 @@ namespace Icarus.Logic.Managers
 
         public List<IEnemyInstance> Enemies { get; set; }
 
-        public IEnemyInstance ActiveEnemeyInstance { get; set; }
+        public IEnemyInstance ActiveEnemyInstance { get; set; }
 
         public EnemyManager(GameWorldManager gameWorldManager)
         {
@@ -23,13 +23,19 @@ namespace Icarus.Logic.Managers
 
         public void DoDamage(int damage, IEnemyInstance enemyInstance)
         {
-            ActiveEnemeyInstance = enemyInstance;
+            ActiveEnemyInstance = enemyInstance;
 
             //TODO calculate actual damage
             var actualDamage = damage;
             _gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttacked] += 1;
             _gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttackedThisTurn] += 1;
+
+            // Handle potential skills that do something with attacks against the player
+            _gameWorldManager.GameTurnManager.ActivateAvailableSkillCardTriggers(ActiveSkillTrigger.OnBeingAttacked);
+
             _gameWorldManager.HeroManager.TakeDamage(actualDamage);
         }
+
+        
     }
 }

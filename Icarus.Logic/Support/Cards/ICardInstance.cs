@@ -12,4 +12,9 @@ namespace Icarus.Logic
         bool Use(List<IEnemyInstance> targets, List<ICardInstance> cardtargets, bool? skipLog = false);
         int CalculateActualCost();
     }
+
+    public interface IPlayableCardTemplate
+    {
+
+    }
 }

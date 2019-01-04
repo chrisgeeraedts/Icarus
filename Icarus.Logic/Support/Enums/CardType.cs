@@ -2,6 +2,7 @@
 {
     public enum CardType
     {
+        Any,
         Attack,
         Skill,
         Power,

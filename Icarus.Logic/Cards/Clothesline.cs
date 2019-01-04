@@ -5,7 +5,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Clothesline : BaseCard, ICardTemplate
+    public class Clothesline : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Clothesline()
         {

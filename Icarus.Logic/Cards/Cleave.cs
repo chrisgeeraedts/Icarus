@@ -5,7 +5,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Cleave : BaseCard, ICardTemplate
+    public class Cleave : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Cleave()
         {

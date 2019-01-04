@@ -4,7 +4,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class TrueGrit : BaseCard, ICardTemplate
+    public class TrueGrit : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public TrueGrit()
         {

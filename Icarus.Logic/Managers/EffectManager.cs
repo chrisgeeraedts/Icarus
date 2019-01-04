@@ -67,6 +67,7 @@ namespace Icarus.Logic.Managers
 
         private bool AddSkillThisTurn(BaseActiveSkill baseActiveSkill)
         {
+            baseActiveSkill.GameWorldManager = _gameWorldManager;
             _gameWorldManager.GameTurnManager.ActiveSkillCardsThisTurn.Add(baseActiveSkill);
             return true;
         }

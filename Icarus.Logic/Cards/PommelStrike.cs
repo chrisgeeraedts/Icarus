@@ -6,7 +6,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class PommelStrike : BaseCard, ICardTemplate
+    public class PommelStrike : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public PommelStrike()
         {

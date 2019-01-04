@@ -6,7 +6,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Dropkick : BaseCard, ICardTemplate
+    public class Dropkick : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Dropkick()
         {

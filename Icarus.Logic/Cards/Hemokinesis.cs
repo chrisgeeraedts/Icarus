@@ -1,26 +1,25 @@
 ﻿using System;
-using Icarus.Logic.Support;
 using Icarus.Logic.Support.Cards.Effects;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class IronWave : BaseCard, ICardTemplate, IPlayableCardTemplate
+    public class Hemokinesis : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
-        public IronWave()
+        public Hemokinesis()
         {
-            UniqueCardId = new Guid("3c27f381-00a0-415a-97ab-1d18337bbfaf");
-            CardEffects.Add(CardEffect.AddBlockSelf, new CardEffectValueObject(typeof(int), 5));
+            UniqueCardId = new Guid("9ab2227e-68de-430d-8338-e70f88a50004");
+            CardEffects.Add(CardEffect.LoseHealth, new CardEffectValueObject(typeof(int), 3));
             CardEffects.Add(CardEffect.Damage, new CardEffectValueObject(typeof(DamageMultipleTimesEffect), new DamageMultipleTimesEffect()
-                { DamageAmount = 6, HitTimes = 1 }));
+                { DamageAmount = 14, HitTimes = 1 }));
             CardColor = CardColor.Red;
             CardType = CardType.Attack;
             CardUseType = CardUseType.Default;
             UpgradeTarget = null;
             CardRarity = CardRarity.Normal;
             Cost = 1;
-            Name = "Iron Wave";
-            Description = "Gain 5 Block. Deal 6 damage";
+            Name = "Hemokinesis";
+            Description = "Lose 3 HP. Deal 14 damage.";
         }
     }
 }

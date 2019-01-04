@@ -8,7 +8,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class Anger : BaseCard, ICardTemplate
+    public class Anger : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public Anger()
         {

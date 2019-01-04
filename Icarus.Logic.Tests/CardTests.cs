@@ -1042,5 +1042,85 @@ namespace Icarus.Logic.Tests
             Assert.AreEqual(98, world.EnemyManager.Enemies[1].ActualHealth);
             Assert.AreEqual(98, world.EnemyManager.Enemies[2].ActualHealth);
         }
+
+
+        [TestMethod]
+        public void TestFlameBarrier()
+        {
+            // Arrange
+            var card = new FlameBarrier();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+            var enemyTargets = new List<IEnemyInstance> { };
+            var cardTargets = new List<ICardInstance>() { };
+
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+            world.EnemyManager.DoDamage(5, world.EnemyManager.Enemies[0]);
+            world.EnemyManager.DoDamage(5, world.EnemyManager.Enemies[1]);
+
+            // Assert
+            Assert.AreEqual(12, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(96, world.EnemyManager.Enemies[0].ActualHealth);
+            Assert.AreEqual(96, world.EnemyManager.Enemies[1].ActualHealth);
+        }
+
+        [TestMethod]
+        public void TestGhostlyArmor()
+        {
+            // Arrange
+            var card = new GhostlyArmor();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+
+            var enemyTargets = new List<IEnemyInstance> { enemies[0] };
+            var cardTargets = new List<ICardInstance>();
+
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+
+            // Assert
+            Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
+            Assert.AreEqual(world.StatusValues[StatusEffect.Block], 10);
+        }
+
+        [TestMethod]
+        public void TestHemokinesis()
+        {
+            // Arrange
+            var card = new Hemokinesis();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+
+            var enemyTargets = new List<IEnemyInstance> { enemies[0] };
+            var cardTargets = new List<ICardInstance>();
+
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+
+            // Assert
+            Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
+            Assert.AreEqual(97, world.HeroManager.Hero.CurrentHealthCount);
+            Assert.AreEqual(86, world.EnemyManager.Enemies[0].ActualHealth);
+        }
+
+        [TestMethod]
+        public void TestInfernalBlade()
+        {
+            // Arrange
+            var card = new InfernalBlade();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+
+            var enemyTargets = new List<IEnemyInstance> { };
+            var cardTargets = new List<ICardInstance>();
+
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+
+            // Assert
+            Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
+            Assert.AreEqual(1, world.CardManager.Hand.Count);
+        }
     }
 }

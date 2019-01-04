@@ -88,6 +88,7 @@ namespace Icarus.Logic.Managers
             ActivateAvailablePowerTriggers(PowerTrigger.EndOfPlayerTurn);
 
             _gameWorldManager.HeroManager.MetaInformation[MetaInformation.AttacksPlayedThisTurn] = 0;
+            _gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttackedThisTurn] = 0;
             ActiveSkillCardsThisTurn = new List<BaseActiveSkill>();
         }
 
@@ -128,6 +129,17 @@ namespace Icarus.Logic.Managers
                     {
                         _gameWorldManager.EventManager.SkillCardActivated(activeSkillCard);
                     }
+                }
+            }
+        }
+
+        public void ActivateAvailableSkillCardTriggers(ActiveSkillTrigger activeSkillTrigger)
+        {
+            foreach (var activeSkillCardsThisTurn in _gameWorldManager.GameTurnManager.ActiveSkillCardsThisTurn)
+            {
+                if (activeSkillCardsThisTurn.ActiveSkillTrigger == activeSkillTrigger)
+                {
+                    activeSkillCardsThisTurn.ActivateAction();
                 }
             }
         }

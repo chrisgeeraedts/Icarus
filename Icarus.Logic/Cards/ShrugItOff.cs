@@ -6,7 +6,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class ShrugItOff : BaseCard, ICardTemplate
+    public class ShrugItOff : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public ShrugItOff()
         {

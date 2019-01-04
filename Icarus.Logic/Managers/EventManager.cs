@@ -56,6 +56,15 @@ namespace Icarus.Logic.Managers
         public delegate void SkillCardActivatedHandler(object sender, SkillCardActivatedEventArgs e);
         public event SkillCardActivatedHandler OnSkillCardActivated;
 
+
+        public delegate void CardMovedBetweenPilesHandler(object sender, CardMovedBetweenPilesEventArgs e);
+        public event CardMovedBetweenPilesHandler OnCardMovedBetweenPiles;
+
+
+        public delegate void CardCreatedEventArgsHandler(object sender, CardCreatedEventArgs e);
+        public event CardCreatedEventArgsHandler OnCardCreated;
+
+
         public void PlayerDamageTaken(int damageAmount)
         {
             if (OnPlayerDamageTaken == null) return;
@@ -163,8 +172,20 @@ namespace Icarus.Logic.Managers
         public void SkillCardActivated(BaseActiveSkill activeSkillCard)
         {
             if (OnSkillCardActivated == null) return;
-            SkillCardActivatedEventArgs args = new SkillCardActivatedEventArgs() { ActiveSkillCard = activeSkillCard};
+            SkillCardActivatedEventArgs args = new SkillCardActivatedEventArgs() { ActiveSkillCard = activeSkillCard };
             OnSkillCardActivated(this, args);
+        }
+        public void CardMovedBetweenPiles(CardMovePoint sourcePoint, CardMovePoint targetPoint, ICardInstance cardInstance)
+        {
+            if (OnCardMovedBetweenPiles == null) return;
+            CardMovedBetweenPilesEventArgs args = new CardMovedBetweenPilesEventArgs() { CardInstance = cardInstance, SourcePoint = sourcePoint, TargetPoint = targetPoint };
+            OnCardMovedBetweenPiles(this, args);
+        }
+        public void CardCreated(CardMovePoint targetPoint, ICardInstance cardInstance)
+        {
+            if (OnCardCreated == null) return;
+            CardCreatedEventArgs args = new CardCreatedEventArgs() { TargetPoint = targetPoint, CardInstance = cardInstance};
+            OnCardCreated(this, args);
         }
     }
 }

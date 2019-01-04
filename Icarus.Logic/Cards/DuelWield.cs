@@ -6,7 +6,7 @@ using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
 {
-    public class DuelWield : BaseCard, ICardTemplate
+    public class DuelWield : BaseCard, ICardTemplate, IPlayableCardTemplate
     {
         public DuelWield()
         {
