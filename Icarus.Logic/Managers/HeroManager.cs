@@ -37,7 +37,8 @@ namespace Icarus.Logic.Managers
             if (actualDamageTaken > 0)
             {
                 // Save meta information
-                MetaInformation[Support.Enums.MetaInformation.AttacksPlayedThisTurn] += 1;
+                MetaInformation[Support.Enums.MetaInformation.TimesPlayerGotDamaged] += 1;
+                MetaInformation[Support.Enums.MetaInformation.TimesPlayerGotDamagedThisTurn] += 1;
 
                 // Handle damage calculation
                 Hero.CurrentHealthCount -= actualDamageTaken;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Managers
 {
@@ -26,8 +27,9 @@ namespace Icarus.Logic.Managers
 
             //TODO calculate actual damage
             var actualDamage = damage;
-
-           _gameWorldManager.HeroManager.TakeDamage(actualDamage);
+            _gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttacked] += 1;
+            _gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttackedThisTurn] += 1;
+            _gameWorldManager.HeroManager.TakeDamage(actualDamage);
         }
     }
 }

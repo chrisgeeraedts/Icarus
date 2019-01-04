@@ -3,6 +3,9 @@
     public enum MetaInformation
     {
         TimesPlayerGotDamaged,
+        TimesPlayerGotAttacked,
+        TimesPlayerGotDamagedThisTurn,
+        TimesPlayerGotAttackedThisTurn,
         AttacksPlayedThisTurn,
         SkillsPlayedThisTurn,
         StatusPlayedThisTurn,

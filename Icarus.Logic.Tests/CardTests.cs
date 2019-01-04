@@ -1020,5 +1020,27 @@ namespace Icarus.Logic.Tests
             Assert.AreEqual(world.HeroManager.EnergyCount - card.Cost, world.HeroManager.CurrentEnergyCount);
             Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
         }
+
+        [TestMethod]
+        public void TestFireBreathing_PowerActivation_ThisTurn()
+        {
+            // Arrange
+            var card = new FireBreathing();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+            var enemyTargets = new List<IEnemyInstance> { };
+            var cardTargets = new List<ICardInstance>() { };
+
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+            world.EnemyManager.DoDamage(5, world.EnemyManager.Enemies[0]);
+            world.EnemyManager.DoDamage(5, world.EnemyManager.Enemies[0]);
+            world.GameTurnManager.StartNextTurn();
+
+            // Assert
+            Assert.AreEqual(98, world.EnemyManager.Enemies[0].ActualHealth);
+            Assert.AreEqual(98, world.EnemyManager.Enemies[1].ActualHealth);
+            Assert.AreEqual(98, world.EnemyManager.Enemies[2].ActualHealth);
+        }
     }
 }

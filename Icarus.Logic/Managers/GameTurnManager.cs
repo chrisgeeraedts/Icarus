@@ -26,8 +26,6 @@ namespace Icarus.Logic.Managers
 
         public List<BaseActiveSkill> ActiveSkillCardsThisTurn { get; set; }
 
-
-
         public TurnType TurnType { get; set; }
         public List<AfterTurnCountEvent> AfterTurnCountEvents { get; set; }
         public int TurnCount = 0;

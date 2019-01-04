@@ -25,7 +25,7 @@ namespace Icarus.Logic.Cards
         public override int CalculateCostOverridable(GameWorldManager gameWorldManager, ICardInstance cardInstance)
         {
             var baseCost = base.CalculateCostOverridable(gameWorldManager, cardInstance);
-            var newValue = Cost - (gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotDamaged] * 1);
+            var newValue = Cost - (gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttacked] * 1);
 
             if (newValue > baseCost)
             {
