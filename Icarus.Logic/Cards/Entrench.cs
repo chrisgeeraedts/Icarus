@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Icarus.Logic.Managers;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.Cards;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
@@ -20,10 +22,10 @@ namespace Icarus.Logic.Cards
             Description = "Double your Block.";
         }
 
-        public override bool UseOverridable(GameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
+        public override bool UseOverridable(IGameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
         {
-            gameWorldManager.StatusValues[StatusEffect.Block] = gameWorldManager.StatusValues[StatusEffect.Block] * 2;
-            return true;
+            return gameWorldManager.CardEffectManager.AddBlockSelf(
+                gameWorldManager.HeroManager.StatusValues[StatusEffect.Block]);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
-using Icarus.Logic.Managers;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.Cards;
+using Icarus.Logic.Shared.Support.Cards.Effects;
 using Icarus.Logic.Support;
-using Icarus.Logic.Support.Cards.Effects;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
@@ -23,9 +25,9 @@ namespace Icarus.Logic.Cards
             Description = "Deal 14 damage. Strength affects this card 3 times.";
         }
 
-        public override int CalculateDamageOverridable(GameWorldManager gameWorldManager, int baseDamage, IEnemyInstance target)
+        public override int CalculateDamageOverridable(IGameWorldManager gameWorldManager, int baseDamage, IEnemyInstance target)
         {
-            return baseDamage + (gameWorldManager.StatusValues[StatusEffect.Strength] * 3);
+            return baseDamage + (gameWorldManager.HeroManager.StatusValues[StatusEffect.Strength] * 3);
         }
     }
 }

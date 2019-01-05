@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Icarus.Logic.Managers;
+using Icarus.Logic.Shared.Support.Cards;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Icarus.Logic.Managers;
-using Icarus.Logic.Support;
-using Icarus.Logic.Support.Cards.Effects;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Support.Cards;
+using Icarus.Logic.Shared.Support.Cards.Effects;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
@@ -25,7 +25,7 @@ namespace Icarus.Logic.Cards
             Description = "Deal 6 damage. Add a copy of this card into your discard pile.";
         }
 
-        public override bool UseOverridable(GameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
+        public override bool UseOverridable(IGameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
         {
             var potentialCopy = gameWorldManager.CardManager.DeckPile.FirstOrDefault(x => x.UniqueCardId == new Guid("3c27f381-00a0-415a-97ab-1d18337bbfaf"));
             if (potentialCopy != null)

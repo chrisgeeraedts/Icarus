@@ -1,6 +1,8 @@
 ﻿using System;
-using Icarus.Logic.Managers;
-using Icarus.Logic.Support.Cards.Effects;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.Cards;
+using Icarus.Logic.Shared.Support.Cards.Effects;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
@@ -22,7 +24,7 @@ namespace Icarus.Logic.Cards
             Description = "Costs 1 less energy for each time you lose HP this combat. Deal 18 damage";
         }
 
-        public override int CalculateCostOverridable(GameWorldManager gameWorldManager, ICardInstance cardInstance)
+        public override int CalculateCostOverridable(IGameWorldManager gameWorldManager, ICardInstance cardInstance)
         {
             var baseCost = base.CalculateCostOverridable(gameWorldManager, cardInstance);
             var newValue = Cost - (gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttacked] * 1);

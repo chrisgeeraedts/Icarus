@@ -1,0 +1,12 @@
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\bin\Debug\netstandard2.0\Icarus.ModExample.deps.json
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\bin\Debug\netstandard2.0\Icarus.ModExample.dll
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\bin\Debug\netstandard2.0\Icarus.ModExample.pdb
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\bin\Debug\netstandard2.0\Icarus.Logic.Shared.dll
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\bin\Debug\netstandard2.0\Icarus.Logic.Shared.pdb
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\obj\Debug\netstandard2.0\Icarus.ModExample.csprojResolveAssemblyReference.cache
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\obj\Debug\netstandard2.0\Icarus.ModExample.csproj.CoreCompileInputs.cache
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\obj\Debug\netstandard2.0\Icarus.ModExample.AssemblyInfoInputs.cache
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\obj\Debug\netstandard2.0\Icarus.ModExample.AssemblyInfo.cs
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\obj\Debug\netstandard2.0\Icarus.ModExample.csproj.CopyComplete
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\obj\Debug\netstandard2.0\Icarus.ModExample.dll
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.ModExample\obj\Debug\netstandard2.0\Icarus.ModExample.pdb

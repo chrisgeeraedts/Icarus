@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Icarus.Logic.Managers;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.Cards;
+using Icarus.Logic.Shared.Support.Cards.Effects;
 using Icarus.Logic.Support;
-using Icarus.Logic.Support.Cards.Effects;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
@@ -24,7 +26,7 @@ namespace Icarus.Logic.Cards
             Description = "Can only be played if every card in your hand is an attack, deal 14 damage";
         }
 
-        public override bool CanUseOverridable(GameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
+        public override bool CanUseOverridable(IGameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
         {
             foreach (var cardInHand in gameWorldManager.CardManager.Hand)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Icarus.Logic.Shared.Support.Enemies;
 
 namespace Icarus.Logic.Enemies
 {

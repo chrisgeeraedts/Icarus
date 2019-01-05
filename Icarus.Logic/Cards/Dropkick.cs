@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Icarus.Logic.Managers;
-using Icarus.Logic.Support.Cards.Effects;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.Cards;
+using Icarus.Logic.Shared.Support.Cards.Effects;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
@@ -23,7 +25,7 @@ namespace Icarus.Logic.Cards
             Description = "Deal 5 damage. If the enemy has Vulnerable, gain 1 Energy and draw 1 card";
         }
 
-        public override bool UseOverridable(GameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
+        public override bool UseOverridable(IGameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
         {
             foreach (var target in targets)
             {

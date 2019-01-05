@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Icarus.Logic.Managers;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.Cards;
+using Icarus.Logic.Shared.Support.Cards.Effects;
 using Icarus.Logic.Support;
-using Icarus.Logic.Support.Cards.Effects;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards
@@ -24,7 +26,7 @@ namespace Icarus.Logic.Cards
             Description = "Deal 6 damage. Deals additional damage for ALL your cards containing strike";
         }
 
-        public override int CalculateDamageOverridable(GameWorldManager gameWorldManager, int baseDamage, IEnemyInstance target)
+        public override int CalculateDamageOverridable(IGameWorldManager gameWorldManager, int baseDamage, IEnemyInstance target)
         {
             int cardCountWithStrike = 0;
             cardCountWithStrike += gameWorldManager.CardManager.DeckPile.Count(x => x.Name.ToLower().Contains("strike"));

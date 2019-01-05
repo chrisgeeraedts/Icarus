@@ -1,5 +1,6 @@
 ﻿using System;
-using Icarus.Logic.Support.Cards.Effects;
+using Icarus.Logic.Shared.Support.Cards;
+using Icarus.Logic.Shared.Support.Cards.Effects;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards

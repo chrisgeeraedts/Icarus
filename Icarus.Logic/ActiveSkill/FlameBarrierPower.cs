@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Icarus.Logic.Managers;
-using Icarus.Logic.Power;
-using Icarus.Logic.Support.Cards.Effects;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.ActiveSkill;
+using Icarus.Logic.Shared.Support.Cards.Effects;
 
 namespace Icarus.Logic.ActiveSkill
 {
@@ -11,12 +12,12 @@ namespace Icarus.Logic.ActiveSkill
 
         public override Guid UniquePowerId => new Guid("46ea8216-c4b1-46aa-b4fb-ed8ec25cd532");
 
-        public override bool ShouldTrigger(GameWorldManager gameWorldManager)
+        public override bool ShouldTrigger(IGameWorldManager gameWorldManager)
         {
             return true;
         }
 
-        public override bool ActionWhenTriggered(GameWorldManager gameWorldManager)
+        public override bool ActionWhenTriggered(IGameWorldManager gameWorldManager)
         {
             gameWorldManager.CardEffectManager.DamageTarget(BaseCard, new DamageMultipleTimesEffect()
             {

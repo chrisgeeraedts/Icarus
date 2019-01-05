@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Icarus.Logic.Managers;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.Cards;
 using Icarus.Logic.Support.Cards;
 using Icarus.Logic.Support.Enums;
 
@@ -21,11 +23,11 @@ namespace Icarus.Logic.Cards
             Description = "Choose an Attack or Power card. Add a copy of that card into your hand";
         }
 
-        public override bool UseOverridable(GameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
+        public override bool UseOverridable(IGameWorldManager gameWorldManager, List<IEnemyInstance> targets, List<ICardInstance> cardTargets)
         {
             foreach (var cardTarget in cardTargets)
             {
-                CardInstance newCard = new CardInstance(cardTarget.CardBase, gameWorldManager);
+                CardInstance newCard = new CardInstance(cardTarget.BaseCard, gameWorldManager);
                 gameWorldManager.CardManager.Hand.Add(newCard);
             }
             return true;

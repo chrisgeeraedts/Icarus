@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveSkill\BaseActiveSkill.cs" />
+    <Compile Include="Classes\MetalWarrior.cs" />
     <Compile Include="ActiveSkill\RageActiveSkill.cs" />
     <Compile Include="ActiveSkill\FlameBarrierPower.cs" />
     <Compile Include="Cards\Corruption.cs" />
@@ -62,31 +62,13 @@
     <Compile Include="Cards\PowerThrough.cs" />
     <Compile Include="Cards\Rage.cs" />
     <Compile Include="Enemies\Enemy_TestDummy.cs" />
-    <Compile Include="Events\Args\CardDrawnEventArgs.cs" />
-    <Compile Include="Events\Args\CardExhaustedEventArgs.cs" />
-    <Compile Include="Events\Args\CardUpgradedEventArgs.cs" />
-    <Compile Include="Events\Args\CardUsedEventArgs.cs" />
-    <Compile Include="Events\Args\EnemyDamageTakenEventArgs.cs" />
-    <Compile Include="Events\Args\EnemyStatusEffectAddedEventArgs.cs" />
-    <Compile Include="Events\Args\EnemyStatusEffectRemovedEventArgs.cs" />
-    <Compile Include="Events\Args\EnergyGainedEventArgs.cs" />
-    <Compile Include="Events\Args\EnergyLostEventArgs.cs" />
-    <Compile Include="Events\Args\PlayerDamageTakenEventArgs.cs" />
-    <Compile Include="Events\Args\PlayerStatusEffectAddedEventArgs.cs" />
-    <Compile Include="Events\Args\PlayerStatusEffectRemovedEventArgs.cs" />
-    <Compile Include="Events\Args\PowerActivatedEventArgs.cs" />
-    <Compile Include="Events\Args\PowerAddedToPlayerEventArgs.cs" />
-    <Compile Include="Events\Args\ShuffleCardEventArgs.cs" />
-    <Compile Include="Events\Args\CardMovedBetweenPilesEventArgs.cs" />
-    <Compile Include="Events\Args\SkillCardActivatedEventArgs.cs" />
-    <Compile Include="Managers\EventManager.cs" />
-    <Compile Include="Power\BasePower.cs" />
     <Compile Include="Cards\BattleTrance.cs" />
     <Compile Include="Cards\BloodForBlood.cs" />
     <Compile Include="Cards\Bloodletting.cs" />
     <Compile Include="Cards\BurningPact.cs" />
     <Compile Include="Cards\Carnage.cs" />
     <Compile Include="Cards\Combust.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Power\MetallicizePower.cs" />
     <Compile Include="Power\FeelNoPainPower.cs" />
     <Compile Include="Power\EvolvePower.cs" />
@@ -95,37 +77,12 @@
     <Compile Include="Cards\ShrugItOff.cs" />
     <Compile Include="Cards\TrueGrit.cs" />
     <Compile Include="Cards\Thunderclap.cs" />
-    <Compile Include="Managers\HeroManager.cs" />
-    <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Power\FireBreathingPower.cs" />
-    <Compile Include="Support\Cards\Effects\ShuffleCardIntoPileEffect.cs" />
     <Compile Include="Cards\TwinStrike.cs" />
     <Compile Include="Cards\WarCry.cs" />
     <Compile Include="Cards\WildStrike.cs" />
     <Compile Include="Cards\Wound.cs" />
-    <Compile Include="Managers\GameTurnManager.cs" />
-    <Compile Include="Support\Cards\Effects\DamageMultipleTimesEffect.cs" />
     <Compile Include="Cards\SwordBoomerang.cs" />
-    <Compile Include="Managers\EffectManager.cs" />
-    <Compile Include="IGame.cs" />
-    <Compile Include="Managers\CardManager.cs" />
-    <Compile Include="Support\Cards\IActiveSkillPower.cs" />
-    <Compile Include="Support\Enums\CardCostType.cs" />
-    <Compile Include="Support\Enums\MetaInformation.cs" />
-    <Compile Include="Support\Enums\ActiveSkillTrigger.cs" />
-    <Compile Include="Support\Enums\PowerTrigger.cs" />
-    <Compile Include="Support\World\AfterTurnCountEvent.cs" />
-    <Compile Include="Support\Cards\BaseCard.cs" />
-    <Compile Include="Support\Enemies\BaseEnemy.cs" />
-    <Compile Include="Support\World\Blight.cs" />
-    <Compile Include="Support\Enums\CardColor.cs" />
-    <Compile Include="Support\Enums\CardEffect.cs" />
-    <Compile Include="Support\Cards\Effects\CardEffectValueObject.cs" />
-    <Compile Include="Support\Cards\CardInstance.cs" />
-    <Compile Include="Support\Enums\CardMovePoint.cs" />
-    <Compile Include="Support\Enums\CardRarity.cs" />
-    <Compile Include="Support\Enums\CardType.cs" />
-    <Compile Include="Support\Enums\CardUseType.cs" />
     <Compile Include="Cards\Anger.cs" />
     <Compile Include="Cards\Arnaments.cs" />
     <Compile Include="Cards\Bash.cs" />
@@ -145,24 +102,24 @@
     <Compile Include="Cards\PerfectedStrike.cs" />
     <Compile Include="Cards\PommelStrike.cs" />
     <Compile Include="Cards\Strike.cs" />
-    <Compile Include="Support\World\ICountbase.cs" />
-    <Compile Include="Support\World\Logger.cs" />
-    <Compile Include="Support\World\CountBase.cs" />
     <Compile Include="Enemies\Enemy_Rat.cs" />
     <Compile Include="Enemies\Enemy_Skeleton.cs" />
     <Compile Include="Enemies\Enemy_Zombie.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Managers\GameWorldManager.cs" />
-    <Compile Include="Hero.cs" />
-    <Compile Include="Support\Cards\ICardInstance.cs" />
-    <Compile Include="Support\Cards\ICardPower.cs" />
-    <Compile Include="Support\Cards\ICardTemplate.cs" />
-    <Compile Include="Support\Enemies\IEnemyInstance.cs" />
-    <Compile Include="Support\Enemies\IEnemyTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Support\World\Relic.cs" />
-    <Compile Include="Support\World\StatusEffect.cs" />
-    <Compile Include="Support\Enums\TurnType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cards\Effects\" />
+    <Folder Include="Relics\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Icarus.Logic.ModInjector\Icarus.Logic.ModInjector.csproj">
+      <Project>{0b4e6157-1290-423a-955e-6d9784bebbeb}</Project>
+      <Name>Icarus.Logic.ModInjector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Icarus.Logic.Shared\Icarus.Logic.Shared.csproj">
+      <Project>{e01ca3bf-4deb-40a0-8dfb-ce29c47756f3}</Project>
+      <Name>Icarus.Logic.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

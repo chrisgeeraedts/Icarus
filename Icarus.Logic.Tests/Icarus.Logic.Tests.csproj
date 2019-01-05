@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InjectorTests.cs" />
     <Compile Include="CardTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,6 +56,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Icarus.Logic.ModInjector\Icarus.Logic.ModInjector.csproj">
+      <Project>{0b4e6157-1290-423a-955e-6d9784bebbeb}</Project>
+      <Name>Icarus.Logic.ModInjector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Icarus.Logic.Shared\Icarus.Logic.Shared.csproj">
+      <Project>{e01ca3bf-4deb-40a0-8dfb-ce29c47756f3}</Project>
+      <Name>Icarus.Logic.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Icarus.Logic\Icarus.Logic.csproj">
       <Project>{53d67608-622c-4741-913d-5b50fa780d9e}</Project>
       <Name>Icarus.Logic</Name>

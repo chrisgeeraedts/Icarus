@@ -1,4 +1,5 @@
 ﻿using System;
+using Icarus.Logic.Shared.Support.Cards;
 using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Logic.Cards

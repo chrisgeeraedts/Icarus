@@ -1,0 +1,9 @@
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\bin\Debug\netstandard2.0\Icarus.Logic.Shared.deps.json
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\bin\Debug\netstandard2.0\Icarus.Logic.Shared.dll
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\bin\Debug\netstandard2.0\Icarus.Logic.Shared.pdb
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\obj\Debug\netstandard2.0\Icarus.Logic.Shared.csproj.CoreCompileInputs.cache
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\obj\Debug\netstandard2.0\Icarus.Logic.Shared.AssemblyInfoInputs.cache
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\obj\Debug\netstandard2.0\Icarus.Logic.Shared.AssemblyInfo.cs
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\obj\Debug\netstandard2.0\Icarus.Logic.Shared.dll
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\obj\Debug\netstandard2.0\Icarus.Logic.Shared.pdb
+C:\Users\PC CHRIS\Source\Repos\chrisgeeraedts\Icarus\Icarus.Logic.Shared\obj\Debug\netstandard2.0\Icarus.Logic.Shared.csprojResolveAssemblyReference.cache

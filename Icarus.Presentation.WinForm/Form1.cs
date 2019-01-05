@@ -10,8 +10,6 @@ using System.Windows.Forms;
 using Icarus.Logic;
 using Icarus.Logic.Cards;
 using Icarus.Logic.Enemies;
-using Icarus.Logic.Managers;
-using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Presentation.WinForm
 {
@@ -37,7 +35,7 @@ namespace Icarus.Presentation.WinForm
 
             List<IEnemyInstance> enemies = new List<IEnemyInstance>
             {
-                new Enemy_Rat(), new Enemy_Skeleton(), new Enemy_Zombie()
+                new Enemy_TestDummy(), new Enemy_Skeleton(), new Enemy_Zombie()
             };
 
 
@@ -45,27 +43,38 @@ namespace Icarus.Presentation.WinForm
 
             world.Reset(Game.Hero, enemies);
 
+            world.EventManager.OnNewLogMessage += EventManager_OnNewLogMessage;
+
             world.EventManager.OnPlayerDamageTaken += EventManager_OnPlayerDamageTaken;
-            world.EventManager.OnPlayerStatusEffectAdded += EventManager_OnPlayerStatusEffectAdded;
 
             world.CardManager.FillDeck();
             world.CardManager.CalculateEnergyCosts();
             world.CardManager.DrawFirstHand();
-
-            world.HeroManager.TakeDamage(40);
-
+            listBoxCards.DisplayMember = "Name";
+            foreach (var managerAvailableBaseCard in world.CardManager.AvailableBaseCards)
+            {
+                this.listBoxCards.Items.Add(managerAvailableBaseCard);
+            }
 
             listBoxCards.DisplayMember = "Name";
             foreach (var managerAvailableBaseCard in world.CardManager.AvailableBaseCards)
             {
                 this.listBoxCards.Items.Add(managerAvailableBaseCard);
             }
+
+            listBoxCards.DisplayMember = "Name";
+            foreach (var enemy in world.EnemyManager.Enemies)
+            {
+                this.listBoxEnemy.Items.Add(enemy);
+            }
         }
 
-        private void EventManager_OnPlayerStatusEffectAdded(object sender, Logic.Events.Args.PlayerStatusEffectAddedEventArgs e)
+        private void EventManager_OnNewLogMessage(object sender, Logic.Events.Args.NewLogMessageEventArgs e)
         {
-            
+            richTextBoxLog.Text += $"{e.LogMessage}" + Environment.NewLine;
         }
+
+       
 
         private void EventManager_OnPlayerDamageTaken(object sender, Logic.Events.Args.PlayerDamageTakenEventArgs e)
         {
@@ -85,9 +94,89 @@ namespace Icarus.Presentation.WinForm
             labelExhaust.Text = (baseCard.CardUseType == CardUseType.Exhaust ? "Exhaust" : "");
         }
 
-        private void groupBoxCardDetail_Enter(object sender, EventArgs e)
-        {
+        
 
+        private void listBoxEnemy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            IEnemyInstance selectedEnemy = (listBoxEnemy.Items[listBoxEnemy.SelectedIndex] as IEnemyInstance);
+            labelMonsterCurrentHealth.Text = selectedEnemy.ActualHealth.ToString();
+            labelMonsterMaxHealth.Text = selectedEnemy.BaseMaxHealth.ToString();
+            labelmonsterName.Text = selectedEnemy.Name.ToString();
+
+            listBoxStatValues.Items.Clear();
+            foreach (var selectedEnemyStatusValue in selectedEnemy.StatusValues)
+            {
+                listBoxStatValues.Items.Add($"{selectedEnemyStatusValue.Key}: {selectedEnemyStatusValue.Value}");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void listBoxCards_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void listBoxCards_DragDrop(object sender, DragEventArgs e)
+        {
+            listBoxCards.Items.Add(e.Data.ToString());
+        }
+
+        private void listBox2_DragDrop(object sender, DragEventArgs e)
+        {
+            listBoxDeck.Items.Add(e.Data.ToString());
+        }
+
+        private void listBox2_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void listBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            listBoxHand.Items.Add(e.Data.ToString());
+        }
+
+        private void listBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void listBox4_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void listBox4_DragDrop(object sender, DragEventArgs e)
+        {
+            listBoxExhaust.Items.Add(e.Data.ToString());
+        }
+
+        private void listBox3_DragDrop(object sender, DragEventArgs e)
+        {
+            listBoxDiscard.Items.Add(e.Data.ToString());
+        }
+
+        private void listBox3_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
         }
     }
 }

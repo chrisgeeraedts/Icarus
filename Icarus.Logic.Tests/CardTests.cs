@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Icarus.Logic.Cards;
+using Icarus.Logic.Classes;
 using Icarus.Logic.Enemies;
-using Icarus.Logic.Events.Args;
-using Icarus.Logic.Managers;
+using Icarus.Logic.Shared;
+using Icarus.Logic.Shared.Events.Args;
+using Icarus.Logic.Shared.Managers;
+using Icarus.Logic.Shared.Support.Cards;
 using Icarus.Logic.Support.Cards;
 
 namespace Icarus.Logic.Tests
@@ -25,11 +28,11 @@ namespace Icarus.Logic.Tests
         }
 
 
-        private GameWorldManager Setup(ICardTemplate card, List<IEnemyInstance> availableEnemies)
+        private GameWorldManager Setup(BaseCard card, List<IEnemyInstance> availableEnemies)
         {
             EventTriggers = new Dictionary<Type, int>();
 
-            Game.Hero = new Hero()
+            Game.Hero = new Hero(new MetalWarrior())
             {
                 Name = "TestHero"
             };
@@ -150,7 +153,7 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
-            Assert.AreEqual(world.StatusValues[StatusEffect.Block], 5);
+            Assert.AreEqual(world.HeroManager.StatusValues[StatusEffect.Block], 5);
         }
 
         [TestMethod]
@@ -169,7 +172,7 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
-            Assert.AreEqual(world.StatusValues[StatusEffect.Block], 7);
+            Assert.AreEqual(world.HeroManager.StatusValues[StatusEffect.Block], 7);
         }
 
         [TestMethod]
@@ -188,7 +191,7 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
-            Assert.AreEqual(world.StatusValues[StatusEffect.Block], 10);
+            Assert.AreEqual(world.HeroManager.StatusValues[StatusEffect.Block], 10);
         }
 
         [TestMethod]
@@ -198,7 +201,7 @@ namespace Icarus.Logic.Tests
             var card = new Anger();
             var enemies = new List<IEnemyInstance> { new Enemy_Rat(), new Enemy_Skeleton(), new Enemy_Zombie() };
             var world = Setup(card, enemies);
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Anger), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Anger(), world));
 
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
             var cardTargets = new List<ICardInstance>();
@@ -220,7 +223,7 @@ namespace Icarus.Logic.Tests
             var card = new Arnaments();
             var enemies = new List<IEnemyInstance> { new Enemy_Rat(), new Enemy_Skeleton(), new Enemy_Zombie() };
             var world = Setup(card, enemies);
-            world.CardManager.Hand.Add(new CardInstance(typeof(Defend), world));
+            world.CardManager.Hand.Add(new CardInstance(new Defend(), world));
 
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
             var cardTargets = new List<ICardInstance>() { world.CardManager.Hand[1] };
@@ -230,7 +233,7 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
-            Assert.AreEqual(world.StatusValues[StatusEffect.Block], 5);
+            Assert.AreEqual(world.HeroManager.StatusValues[StatusEffect.Block], 5);
             Assert.AreEqual(world.CardManager.Hand[0].UniqueCardId, new Guid("f50d89a8-c94a-4583-8877-254d1d7af693"));
         }
 
@@ -241,7 +244,7 @@ namespace Icarus.Logic.Tests
             var card = new BodySlam();
             var enemies = new List<IEnemyInstance> { new Enemy_Rat(), new Enemy_Skeleton(), new Enemy_Zombie() };
             var world = Setup(card, enemies);
-            world.CardManager.Hand.Add(new CardInstance(typeof(Defend), world));
+            world.CardManager.Hand.Add(new CardInstance(new Defend(), world));
 
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
             var cardTargets = new List<ICardInstance>() { world.CardManager.Hand[1] };
@@ -253,7 +256,7 @@ namespace Icarus.Logic.Tests
             // Assert
             Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - (card.Cost + new Defend().Cost));
             Assert.AreEqual(world.EnemyManager.Enemies[0].ActualHealth, 7);
-            Assert.AreEqual(world.StatusValues[StatusEffect.Block], 5);
+            Assert.AreEqual(world.HeroManager.StatusValues[StatusEffect.Block], 5);
         }
 
         [TestMethod]
@@ -263,7 +266,7 @@ namespace Icarus.Logic.Tests
             var card = new Clash();
             var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
             var world = Setup(card, enemies);
-            world.CardManager.Hand.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.Hand.Add(new CardInstance(new Strike(), world));
 
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
             var cardTargets = new List<ICardInstance>() { world.CardManager.Hand[1] };
@@ -283,7 +286,7 @@ namespace Icarus.Logic.Tests
             var card = new Clash();
             var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
             var world = Setup(card, enemies);
-            world.CardManager.Hand.Add(new CardInstance(typeof(Defend), world));
+            world.CardManager.Hand.Add(new CardInstance(new Defend(), world));
 
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
             var cardTargets = new List<ICardInstance>() { world.CardManager.Hand[1] };
@@ -353,12 +356,12 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.EnergyCount - card.Cost, world.HeroManager.CurrentEnergyCount);
-            Assert.AreEqual(2, world.StatusValues[StatusEffect.Strength]);
+            Assert.AreEqual(2, world.HeroManager.StatusValues[StatusEffect.Strength]);
 
             world.GameTurnManager.StartNextTurn(); // Start enemy turn
             world.GameTurnManager.StartNextTurn(); // Start next player turn
 
-            Assert.AreEqual(0, world.StatusValues[StatusEffect.Strength]);
+            Assert.AreEqual(0, world.HeroManager.StatusValues[StatusEffect.Strength]);
         }
 
         [TestMethod]
@@ -370,7 +373,7 @@ namespace Icarus.Logic.Tests
             var world = Setup(card, enemies);
 
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
-            world.CardManager.DiscardPile.Add(new CardInstance(typeof(Defend), world));
+            world.CardManager.DiscardPile.Add(new CardInstance(new Defend(), world));
 
             // Act
             Guid id = world.CardManager.DiscardPile[0].UniqueId;
@@ -411,7 +414,7 @@ namespace Icarus.Logic.Tests
             var card = new HeavyBlade();
             var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
             var world = Setup(card, enemies);
-            world.StatusValues[StatusEffect.Strength] = 2;
+            world.HeroManager.StatusValues[StatusEffect.Strength] = 2;
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
 
             // Act
@@ -441,7 +444,7 @@ namespace Icarus.Logic.Tests
             // Assert
             Assert.AreEqual(world.HeroManager.EnergyCount - card.Cost, world.HeroManager.CurrentEnergyCount);
             Assert.AreEqual(94, world.EnemyManager.Enemies[0].ActualHealth);
-            Assert.AreEqual(5, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(5, world.HeroManager.StatusValues[StatusEffect.Block]);
         }
 
         [TestMethod]
@@ -471,9 +474,9 @@ namespace Icarus.Logic.Tests
             var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
             var world = Setup(card, enemies);
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
 
             // Act
             var cardTargets = new List<ICardInstance>() { };
@@ -494,7 +497,7 @@ namespace Icarus.Logic.Tests
             var world = Setup(card, enemies);
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
 
-            var cardInDeck = new CardInstance(typeof(Strike), world);
+            var cardInDeck = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck);
 
             // Act
@@ -517,7 +520,7 @@ namespace Icarus.Logic.Tests
             var world = Setup(card, enemies);
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
 
-            var cardInDeck = new CardInstance(typeof(Strike), world);
+            var cardInDeck = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck);
 
             // Act
@@ -527,7 +530,7 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.EnergyCount - card.Cost, world.HeroManager.CurrentEnergyCount);
-            Assert.AreEqual(8, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(8, world.HeroManager.StatusValues[StatusEffect.Block]);
             Assert.AreEqual(true, world.CardManager.Hand.Any(x => x.UniqueId == cardInDeck.UniqueId));
         }
 
@@ -587,7 +590,7 @@ namespace Icarus.Logic.Tests
             var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
             var world = Setup(card, enemies);
             var enemyTargets = new List<IEnemyInstance> { enemies[0], enemies[1], enemies[2] };
-            var cardInHand = new CardInstance(typeof(Strike), world);
+            var cardInHand = new CardInstance(new Strike(), world);
             world.CardManager.Hand.Add(cardInHand);
             var cardTargets = new List<ICardInstance>() { world.CardManager.Hand[1] };
             // Act
@@ -596,7 +599,7 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.EnergyCount - card.Cost, world.HeroManager.CurrentEnergyCount);
-            Assert.AreEqual(7, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(7, world.HeroManager.StatusValues[StatusEffect.Block]);
             Assert.AreEqual(true, world.CardManager.ExhaustPile.Any(x => x.UniqueId == cardInHand.UniqueId));
         }
 
@@ -628,7 +631,7 @@ namespace Icarus.Logic.Tests
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
 
 
-            var cardInHand = new CardInstance(typeof(Strike), world);
+            var cardInHand = new CardInstance(new Strike(), world);
             world.CardManager.Hand.Add(cardInHand);
             var cardTargets = new List<ICardInstance>() { world.CardManager.Hand[1] };
 
@@ -673,13 +676,13 @@ namespace Icarus.Logic.Tests
             var cardTargets = new List<ICardInstance>() { };
 
 
-            var cardInDeck1 = new CardInstance(typeof(Strike), world);
+            var cardInDeck1 = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck1);
 
-            var cardInDeck2 = new CardInstance(typeof(Strike), world);
+            var cardInDeck2 = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck2);
 
-            var cardInDeck3 = new CardInstance(typeof(Strike), world);
+            var cardInDeck3 = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck3);
 
             // Act
@@ -702,16 +705,16 @@ namespace Icarus.Logic.Tests
             var cardTargets = new List<ICardInstance>() { };
 
 
-            var cardInHand1 = new CardInstance(typeof(BattleTrance), world);
+            var cardInHand1 = new CardInstance(new Strike(), world);
             world.CardManager.Hand.Add(cardInHand1);
 
-            var cardInDeck1 = new CardInstance(typeof(Strike), world);
+            var cardInDeck1 = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck1);
 
-            var cardInDeck2 = new CardInstance(typeof(Strike), world);
+            var cardInDeck2 = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck2);
 
-            var cardInDeck3 = new CardInstance(typeof(Strike), world);
+            var cardInDeck3 = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck3);
 
             // Act
@@ -794,11 +797,11 @@ namespace Icarus.Logic.Tests
             var enemyTargets = new List<IEnemyInstance> { enemies[0] };
 
 
-            var cardInHand = new CardInstance(typeof(Strike), world);
+            var cardInHand = new CardInstance(new Strike(), world);
             world.CardManager.Hand.Add(cardInHand);
 
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Defend), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Defend), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Defend(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Defend(), world));
 
             var cardTargets = new List<ICardInstance>() { cardInHand };
 
@@ -881,10 +884,10 @@ namespace Icarus.Logic.Tests
             var cardTargets = new List<ICardInstance>() { };
 
 
-            var cardInHand = new CardInstance(typeof(BurningPact), world);
+            var cardInHand = new CardInstance(new BurningPact(), world);
             world.CardManager.Hand.Add(cardInHand);
 
-            var cardInHand2 = new CardInstance(typeof(Carnage), world);
+            var cardInHand2 = new CardInstance(new Carnage(), world);
             world.CardManager.Hand.Add(cardInHand2);
 
             // Act
@@ -923,7 +926,7 @@ namespace Icarus.Logic.Tests
             var cardTargets = new List<ICardInstance>() { };
             enemies[0].StatusValues[StatusEffect.Vulnerable] = 5;
 
-            var cardInDeck1 = new CardInstance(typeof(Strike), world);
+            var cardInDeck1 = new CardInstance(new Strike(), world);
             world.CardManager.DeckPile.Add(cardInDeck1);
 
             // Act
@@ -943,7 +946,7 @@ namespace Icarus.Logic.Tests
             var world = Setup(card, enemies);
             var enemyTargets = new List<IEnemyInstance> { };
 
-            var cardInHand1 = new CardInstance(typeof(Strike), world);
+            var cardInHand1 = new CardInstance(new Strike(), world);
             world.CardManager.Hand.Add(cardInHand1);
 
             var cardTargets = new List<ICardInstance>() { cardInHand1 };
@@ -965,14 +968,14 @@ namespace Icarus.Logic.Tests
             var world = Setup(card, enemies);
             var enemyTargets = new List<IEnemyInstance> { };
             var cardTargets = new List<ICardInstance>() { };
-            world.StatusValues[StatusEffect.Block] = 10;
+            world.HeroManager.StatusValues[StatusEffect.Block] = 10;
 
             // Act
             world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
 
             // Assert
             Assert.AreEqual(world.HeroManager.EnergyCount - card.Cost, world.HeroManager.CurrentEnergyCount);
-            Assert.AreEqual(20, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(20, world.HeroManager.StatusValues[StatusEffect.Block]);
         }
 
         [TestMethod]
@@ -985,10 +988,10 @@ namespace Icarus.Logic.Tests
             var enemyTargets = new List<IEnemyInstance> { };
             var cardTargets = new List<ICardInstance>() { };
 
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Wound), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Wound(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
 
             // Act
             world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
@@ -1010,7 +1013,7 @@ namespace Icarus.Logic.Tests
             var cardTargets = new List<ICardInstance>() { };
 
 
-            world.CardManager.Hand.Add(new CardInstance(typeof(WarCry), world));
+            world.CardManager.Hand.Add(new CardInstance(new WarCry(), world));
 
             // Act
             world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
@@ -1018,7 +1021,7 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.EnergyCount - card.Cost, world.HeroManager.CurrentEnergyCount);
-            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(3, world.HeroManager.StatusValues[StatusEffect.Block]);
         }
 
         [TestMethod]
@@ -1060,7 +1063,7 @@ namespace Icarus.Logic.Tests
             world.EnemyManager.DoDamage(5, world.EnemyManager.Enemies[1]);
 
             // Assert
-            Assert.AreEqual(12, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(12, world.HeroManager.StatusValues[StatusEffect.Block]);
             Assert.AreEqual(96, world.EnemyManager.Enemies[0].ActualHealth);
             Assert.AreEqual(96, world.EnemyManager.Enemies[1].ActualHealth);
         }
@@ -1081,7 +1084,7 @@ namespace Icarus.Logic.Tests
 
             // Assert
             Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
-            Assert.AreEqual(world.StatusValues[StatusEffect.Block], 10);
+            Assert.AreEqual(world.HeroManager.StatusValues[StatusEffect.Block], 10);
         }
 
         [TestMethod]
@@ -1159,13 +1162,13 @@ namespace Icarus.Logic.Tests
             world.GameTurnManager.StartNextTurn();
 
             // Assert
-            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(3, world.HeroManager.StatusValues[StatusEffect.Block]);
             world.GameTurnManager.StartNextTurn();
             world.GameTurnManager.StartNextTurn();
-            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(3, world.HeroManager.StatusValues[StatusEffect.Block]);
             world.GameTurnManager.StartNextTurn();
             world.GameTurnManager.StartNextTurn();
-            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(3, world.HeroManager.StatusValues[StatusEffect.Block]);
             Assert.AreEqual(3, EventTriggers[typeof(PlayerStatusEffectAddedEventArgs)]);
         }
 
@@ -1186,9 +1189,9 @@ namespace Icarus.Logic.Tests
             Assert.AreEqual(2, world.CardManager.Hand.Count);
             foreach (var cardInstance in world.CardManager.Hand)
             {
-                Assert.AreEqual(typeof(Wound), cardInstance.CardBase);
+                Assert.AreEqual(typeof(Wound), cardInstance.BaseCard.GetType());
             }
-            Assert.AreEqual(15, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(15, world.HeroManager.StatusValues[StatusEffect.Block]);
         }
 
         [TestMethod]
@@ -1202,28 +1205,28 @@ namespace Icarus.Logic.Tests
             var cardTargets = new List<ICardInstance>() { };
 
 
-            world.CardManager.Hand.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.Hand.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.Hand.Add(new CardInstance(new Strike(),world));
+            world.CardManager.Hand.Add(new CardInstance(new Strike(), world));
 
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
-            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
+            world.CardManager.DeckPile.Add(new CardInstance(new Strike(), world));
             // Act
             world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
 
             // Assert
-            Assert.AreEqual(0, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(0, world.HeroManager.StatusValues[StatusEffect.Block]);
             world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
-            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(3, world.HeroManager.StatusValues[StatusEffect.Block]);
             world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
-            Assert.AreEqual(6, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(6, world.HeroManager.StatusValues[StatusEffect.Block]);
             world.GameTurnManager.StartNextTurn();
             world.GameTurnManager.StartNextTurn();
             world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
-            Assert.AreEqual(0, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(0, world.HeroManager.StatusValues[StatusEffect.Block]);
 
         }
     }

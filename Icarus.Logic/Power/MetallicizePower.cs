@@ -1,6 +1,7 @@
 ﻿using System;
-using Icarus.Logic.Managers;
+using Icarus.Logic.Shared;
 using Icarus.Logic.Support.Enums;
+using Icarus.Logic.Support.Power;
 
 namespace Icarus.Logic.Power
 {
@@ -9,12 +10,12 @@ namespace Icarus.Logic.Power
 
         public override Guid UniquePowerId => new Guid("2fae8c82-4a4f-443f-896d-4bc3db65dc5f");
 
-        public override bool ShouldTrigger(GameWorldManager gameWorldManager)
+        public override bool ShouldTrigger(IGameWorldManager gameWorldManager)
         {
             return gameWorldManager.GameTurnManager.TurnType == TurnType.Player;
         }
 
-        public override bool ActionWhenTriggered(GameWorldManager gameWorldManager)
+        public override bool ActionWhenTriggered(IGameWorldManager gameWorldManager)
         {
             gameWorldManager.CardEffectManager.AddBlockSelf(3);
 
