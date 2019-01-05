@@ -31,7 +31,7 @@ namespace Icarus.Logic.Managers
             _gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttackedThisTurn] += 1;
 
             // Handle potential skills that do something with attacks against the player
-            _gameWorldManager.GameTurnManager.ActivateAvailableSkillCardTriggers(ActiveSkillTrigger.OnBeingAttacked);
+            _gameWorldManager.GameTurnManager.ActivateActiveSkillCardsThisTurn(ActiveSkillTrigger.OnBeingAttacked);
 
             _gameWorldManager.HeroManager.TakeDamage(actualDamage);
         }

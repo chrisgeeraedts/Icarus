@@ -9,7 +9,7 @@ namespace Icarus.Logic.ActiveSkill
     public class FlameBarrierActiveSkill : BaseActiveSkill
     {
 
-        public override Guid UniquePowerId => new Guid("e422fd4ef3ba4a809e96182fe6a28219");
+        public override Guid UniquePowerId => new Guid("46ea8216-c4b1-46aa-b4fb-ed8ec25cd532");
 
         public override bool ShouldTrigger(GameWorldManager gameWorldManager)
         {

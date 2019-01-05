@@ -46,6 +46,12 @@ namespace Icarus.Logic
                 ActivateEffects(gameWorldManager, targets, cardTargets);
                 var result = UseOverridable(gameWorldManager, targets, cardTargets);
                 gameWorldManager.GameTurnManager.ActivateAvailablePowerTriggers(PowerTrigger.Always);
+
+                if (this.CardType == CardType.Attack)
+                {
+                    gameWorldManager.GameTurnManager.ActivateActiveSkillCardsThisTurn(ActiveSkillTrigger.OnAttack);
+                }
+               
                 return result;
             }
             return false;

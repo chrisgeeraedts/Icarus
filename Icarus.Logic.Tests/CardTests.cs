@@ -1122,5 +1122,109 @@ namespace Icarus.Logic.Tests
             Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
             Assert.AreEqual(1, world.CardManager.Hand.Count);
         }
+
+        [TestMethod]
+        public void TestIntimidate()
+        {
+            // Arrange
+            var card = new Intimidate();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+
+            var enemyTargets = enemies;
+            var cardTargets = new List<ICardInstance>();
+
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+
+            // Assert
+            Assert.AreEqual(world.HeroManager.CurrentEnergyCount, world.HeroManager.EnergyCount - card.Cost);
+            Assert.AreEqual(1, world.EnemyManager.Enemies[0].StatusValues[StatusEffect.Weak]);
+            Assert.AreEqual(1, world.EnemyManager.Enemies[1].StatusValues[StatusEffect.Weak]);
+            Assert.AreEqual(1, world.EnemyManager.Enemies[2].StatusValues[StatusEffect.Weak]);
+        }
+
+        [TestMethod]
+        public void TestMetallicize()
+        {
+            // Arrange
+            var card = new Metallicize();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+            var enemyTargets = new List<IEnemyInstance> { };
+            var cardTargets = new List<ICardInstance>() { };
+
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+            world.GameTurnManager.StartNextTurn();
+
+            // Assert
+            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            world.GameTurnManager.StartNextTurn();
+            world.GameTurnManager.StartNextTurn();
+            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            world.GameTurnManager.StartNextTurn();
+            world.GameTurnManager.StartNextTurn();
+            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            Assert.AreEqual(3, EventTriggers[typeof(PlayerStatusEffectAddedEventArgs)]);
+        }
+
+        [TestMethod]
+        public void TestPowerThrough()
+        {
+            // Arrange
+            var card = new PowerThrough();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+            var enemyTargets = new List<IEnemyInstance> { };
+            var cardTargets = new List<ICardInstance>() { };
+
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+
+            // Assert
+            Assert.AreEqual(2, world.CardManager.Hand.Count);
+            foreach (var cardInstance in world.CardManager.Hand)
+            {
+                Assert.AreEqual(typeof(Wound), cardInstance.CardBase);
+            }
+            Assert.AreEqual(15, world.StatusValues[StatusEffect.Block]);
+        }
+
+        [TestMethod]
+        public void TestRage()
+        {
+            // Arrange
+            var card = new Rage();
+            var enemies = new List<IEnemyInstance> { new Enemy_TestDummy(), new Enemy_TestDummy(), new Enemy_TestDummy() };
+            var world = Setup(card, enemies);
+            var enemyTargets = new List<IEnemyInstance> { };
+            var cardTargets = new List<ICardInstance>() { };
+
+
+            world.CardManager.Hand.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.Hand.Add(new CardInstance(typeof(Strike), world));
+
+            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            world.CardManager.DeckPile.Add(new CardInstance(typeof(Strike), world));
+            // Act
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+
+            // Assert
+            Assert.AreEqual(0, world.StatusValues[StatusEffect.Block]);
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+            Assert.AreEqual(3, world.StatusValues[StatusEffect.Block]);
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+            Assert.AreEqual(6, world.StatusValues[StatusEffect.Block]);
+            world.GameTurnManager.StartNextTurn();
+            world.GameTurnManager.StartNextTurn();
+            world.CardManager.Hand[0].Use(enemyTargets, cardTargets);
+            Assert.AreEqual(0, world.StatusValues[StatusEffect.Block]);
+
+        }
     }
 }

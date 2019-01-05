@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveSkill\BaseActiveSkill.cs" />
+    <Compile Include="ActiveSkill\RageActiveSkill.cs" />
     <Compile Include="ActiveSkill\FlameBarrierPower.cs" />
     <Compile Include="Cards\Corruption.cs" />
     <Compile Include="Cards\Disarm.cs" />
@@ -54,7 +55,12 @@
     <Compile Include="Cards\GhostlyArmor.cs" />
     <Compile Include="Cards\Hemokinesis.cs" />
     <Compile Include="Cards\InfernalBlade.cs" />
+    <Compile Include="Cards\Inflame.cs" />
+    <Compile Include="Cards\Intimidate.cs" />
+    <Compile Include="Cards\Metallicize.cs" />
     <Compile Include="Cards\NullCard.cs" />
+    <Compile Include="Cards\PowerThrough.cs" />
+    <Compile Include="Cards\Rage.cs" />
     <Compile Include="Enemies\Enemy_TestDummy.cs" />
     <Compile Include="Events\Args\CardDrawnEventArgs.cs" />
     <Compile Include="Events\Args\CardExhaustedEventArgs.cs" />
@@ -81,6 +87,7 @@
     <Compile Include="Cards\BurningPact.cs" />
     <Compile Include="Cards\Carnage.cs" />
     <Compile Include="Cards\Combust.cs" />
+    <Compile Include="Power\MetallicizePower.cs" />
     <Compile Include="Power\FeelNoPainPower.cs" />
     <Compile Include="Power\EvolvePower.cs" />
     <Compile Include="Power\CorruptionPower.cs" />

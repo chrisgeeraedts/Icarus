@@ -11,6 +11,7 @@ using Icarus.Logic;
 using Icarus.Logic.Cards;
 using Icarus.Logic.Enemies;
 using Icarus.Logic.Managers;
+using Icarus.Logic.Support.Enums;
 
 namespace Icarus.Presentation.WinForm
 {
@@ -52,6 +53,13 @@ namespace Icarus.Presentation.WinForm
             world.CardManager.DrawFirstHand();
 
             world.HeroManager.TakeDamage(40);
+
+
+            listBoxCards.DisplayMember = "Name";
+            foreach (var managerAvailableBaseCard in world.CardManager.AvailableBaseCards)
+            {
+                this.listBoxCards.Items.Add(managerAvailableBaseCard);
+            }
         }
 
         private void EventManager_OnPlayerStatusEffectAdded(object sender, Logic.Events.Args.PlayerStatusEffectAddedEventArgs e)
@@ -62,6 +70,24 @@ namespace Icarus.Presentation.WinForm
         private void EventManager_OnPlayerDamageTaken(object sender, Logic.Events.Args.PlayerDamageTakenEventArgs e)
         {
             
+        }
+
+        private void listBoxCards_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateCardSelection(listBoxCards.Items[listBoxCards.SelectedIndex] as BaseCard);
+        }
+
+        private void UpdateCardSelection(BaseCard baseCard)
+        {
+            labelCost.Text = baseCard.Cost.ToString();
+            groupBoxCardDetail.Text = baseCard.Name.ToString();
+            labelDescription.Text = baseCard.Description.ToString();
+            labelExhaust.Text = (baseCard.CardUseType == CardUseType.Exhaust ? "Exhaust" : "");
+        }
+
+        private void groupBoxCardDetail_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

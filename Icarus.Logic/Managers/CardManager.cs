@@ -10,6 +10,16 @@ namespace Icarus.Logic.Managers
     {
         private List<BaseCard> availableCardTemplates;
 
+        public List<BaseCard> AvailableBaseCards
+        {
+            get
+            {
+                var items = new List<BaseCard>();
+                items.AddRange(availableCardTemplates);
+                return items;
+            }
+        }
+
         public int MaxHandSize
         {
             get 

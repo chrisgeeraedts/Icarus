@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using System.Linq;
 using Icarus.Logic.ActiveSkill;
 using Icarus.Logic.Power;
 using Icarus.Logic.Support.Enums;
@@ -50,6 +53,11 @@ namespace Icarus.Logic.Managers
         private void BeginPlayerTurn()
         {
             Logger.Log("# Beginning player turn");
+
+            RemoveBlock();
+            RemoveTurnStackStatusEffects();
+
+
             ActivateActiveSkillCardsThisTurn(ActiveSkillTrigger.EndOfPlayerTurn);
             ActivateAvailablePowerTriggers(PowerTrigger.Always);
 
@@ -77,9 +85,39 @@ namespace Icarus.Logic.Managers
             {
                 _gameWorldManager.CardManager.DrawFromDeck();
             }
+
+
         }
 
-       
+        private void RemoveTurnStackStatusEffects()
+        {
+            List<StatusEffect> excludedEffects = new List<StatusEffect>()
+            {
+                StatusEffect.Block,
+                StatusEffect.Strength
+            };
+
+            List<StatusEffect> keysToNuke = new List<StatusEffect>();
+            foreach (var key in _gameWorldManager.StatusValues.Keys.Where(x=> !excludedEffects.Contains(x)))
+            {
+
+                if (_gameWorldManager.StatusValues[key] > 0)
+                {
+                    keysToNuke.Add(key);
+                }
+            }
+            foreach (StatusEffect key in keysToNuke)
+            {
+                _gameWorldManager.StatusValues[key] -= 1;
+            }
+        }
+
+        private void RemoveBlock()
+        {
+            //TODO: change this depending on some relics
+            _gameWorldManager.CardEffectManager.AddBlockSelf(-_gameWorldManager.StatusValues[StatusEffect.Block]);
+        }
+
 
         private void EndPlayerTurn()
         {
@@ -89,6 +127,7 @@ namespace Icarus.Logic.Managers
 
             _gameWorldManager.HeroManager.MetaInformation[MetaInformation.AttacksPlayedThisTurn] = 0;
             _gameWorldManager.HeroManager.MetaInformation[MetaInformation.TimesPlayerGotAttackedThisTurn] = 0;
+            
             ActiveSkillCardsThisTurn = new List<BaseActiveSkill>();
         }
 
@@ -119,7 +158,7 @@ namespace Icarus.Logic.Managers
             }
         }
 
-        private void ActivateActiveSkillCardsThisTurn(ActiveSkillTrigger activeSkillTrigger)
+        public void ActivateActiveSkillCardsThisTurn(ActiveSkillTrigger activeSkillTrigger)
         {
             foreach (var activeSkillCard in ActiveSkillCardsThisTurn)
             {
@@ -129,17 +168,6 @@ namespace Icarus.Logic.Managers
                     {
                         _gameWorldManager.EventManager.SkillCardActivated(activeSkillCard);
                     }
-                }
-            }
-        }
-
-        public void ActivateAvailableSkillCardTriggers(ActiveSkillTrigger activeSkillTrigger)
-        {
-            foreach (var activeSkillCardsThisTurn in _gameWorldManager.GameTurnManager.ActiveSkillCardsThisTurn)
-            {
-                if (activeSkillCardsThisTurn.ActiveSkillTrigger == activeSkillTrigger)
-                {
-                    activeSkillCardsThisTurn.ActivateAction();
                 }
             }
         }

@@ -6,6 +6,7 @@
         OnCardExhaust,
         OnCardDiscard,
         EndOfPlayerTurn,
-        OnBeingAttacked
+        OnBeingAttacked,
+        OnAttack
     }
 }
